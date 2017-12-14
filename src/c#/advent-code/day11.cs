@@ -12,18 +12,21 @@ namespace advent_code.DayElevenSpace
       { 
          get
          { 
-            if (_north == null)
-            {
-               _north = new Node(Steps + 1)
-               {
-                  // North = new Node{Steps = Steps + 2},
-                  // NorthEast = new Node{Steps = Steps + 2},
-                  SouthEast = NorthEast,//new Node(Steps + 1),
-                  South = this,
-                  SouthWest = NorthWest
-                  // NorthWest = new Node{Steps = Steps + 2}
-               };
-            }
+            // if (_north == null)
+            // {
+            //    _north = new Node(Steps + 1)
+            //    {
+            //       // North = new Node{Steps = Steps + 2},
+            //       // NorthEast = new Node{Steps = Steps + 2},
+            //       SouthEast = NorthEast,//new Node(Steps + 1),
+            //       South = this,
+            //       SouthWest = NorthWest
+            //       // NorthWest = new Node{Steps = Steps + 2}
+            //    };
+            // }
+            _north.SouthEast = NorthEast;
+            _north.South = this;
+            _north.SouthWest = NorthWest;
             return _north;
          }
          set{_north = value;}
@@ -32,18 +35,21 @@ namespace advent_code.DayElevenSpace
       { 
          get
          { 
-            if (_northEast == null)
-            {
-               _northEast = new Node(Steps + 1)
-               {
-                  // North = new Node{Steps = Steps + 2},
-                  // NorthEast = new Node{Steps = Steps + 2},
-                  // SouthEast = new Node{Steps = Steps + 2},
-                  South = SouthEast,
-                  SouthWest = this,
-                  NorthWest = North
-               };
-            }
+            // if (_northEast == null)
+            // {
+            //    _northEast = new Node(Steps + 1)
+            //    {
+            //       // North = new Node{Steps = Steps + 2},
+            //       // NorthEast = new Node{Steps = Steps + 2},
+            //       // SouthEast = new Node{Steps = Steps + 2},
+            //       South = SouthEast,
+            //       SouthWest = this,
+            //       NorthWest = North
+            //    };
+            // }
+            _northEast.South = SouthEast;
+            _northEast.SouthWest = this;
+            _northEast.NorthWest = North;
             return _northEast;
          }
          set{_northEast = value;}
@@ -52,18 +58,21 @@ namespace advent_code.DayElevenSpace
       { 
          get
          { 
-            if (_southEast == null)
-            {
-               _southEast = new Node(Steps + 1)
-               {
-                  North = NorthEast,
-                  // NorthEast = new Node{Steps = Steps + 2},
-                  // SouthEast = new Node{Steps = Steps + 2},
-                  // South = new Node{Steps = Steps + 2},
-                  SouthWest = South,
-                  NorthWest = this
-               };
-            }
+            // if (_southEast == null)
+            // {
+            //    _southEast = new Node(Steps + 1)
+            //    {
+            //       North = NorthEast,
+            //       // NorthEast = new Node{Steps = Steps + 2},
+            //       // SouthEast = new Node{Steps = Steps + 2},
+            //       // South = new Node{Steps = Steps + 2},
+            //       SouthWest = South,
+            //       NorthWest = this
+            //    };
+            // }
+            _southEast.North = NorthEast;
+            _northEast.SouthWest = South;
+            _northEast.NorthWest = this;
             return _southEast;
          }
          set{_southEast = value;}
@@ -72,18 +81,22 @@ namespace advent_code.DayElevenSpace
       { 
          get
          { 
-            if (_south == null)
-            {
-               _south = new Node(Steps + 1)
-               {
-                  North = this,
-                  NorthEast = SouthEast,
-                  // SouthEast = new Node{Steps = Steps + 2},
-                  // South = new Node{Steps = Steps + 2},
-                  // SouthWest = new Node{Steps = Steps + 2},
-                  NorthWest = SouthWest
-               };
-            }
+            // if (_south == null)
+            // {
+            //    _south = new Node(Steps + 1)
+            //    {
+            //       North = this,
+            //       NorthEast = SouthEast,
+            //       // SouthEast = new Node{Steps = Steps + 2},
+            //       // South = new Node{Steps = Steps + 2},
+            //       // SouthWest = new Node{Steps = Steps + 2},
+            //       NorthWest = SouthWest
+            //    };
+            // }
+
+            _south.North = this;
+            _south.NorthEast = SouthEast;
+            _south.NorthWest = SouthWest;
             return _south;
          }
          set{_south = value;}
@@ -92,18 +105,21 @@ namespace advent_code.DayElevenSpace
       { 
          get
          { 
-            if (_southWest == null)
-            {
-               _southWest = new Node(Steps + 1)
-               {
-                  North = NorthWest,
-                  NorthEast = this,
-                  SouthEast = South
-                  // South = new Node{Steps = Steps + 2},
-                  // SouthWest = new Node{Steps = Steps + 2},
-                  // NorthWest = new Node{Steps = Steps + 2}
-               };
-            }
+            // if (_southWest == null)
+            // {
+            //    _southWest = new Node(Steps + 1)
+            //    {
+            //       North = NorthWest,
+            //       NorthEast = this,
+            //       SouthEast = South
+            //       // South = new Node{Steps = Steps + 2},
+            //       // SouthWest = new Node{Steps = Steps + 2},
+            //       // NorthWest = new Node{Steps = Steps + 2}
+            //    };
+            // }
+            _southWest.North = NorthWest;
+            _southWest.NorthEast = this;
+            _southWest.SouthEast = South;
             return _southWest;
          }
          set{_southWest = value;}
@@ -112,18 +128,21 @@ namespace advent_code.DayElevenSpace
       { 
          get
          { 
-            if (_northWest == null)
-            {
-               _northWest = new Node(Steps + 1)
-               {
-                  // North = new Node{Steps = Steps + 2},
-                  NorthEast = North,
-                  SouthEast = this,
-                  South = SouthWest
-                  // SouthWest = new Node{Steps = Steps + 2},
-                  // NorthWest = new Node{Steps = Steps + 2}
-               };
-            }
+            // if (_northWest == null)
+            // {
+            //    _northWest = new Node(Steps + 1)
+            //    {
+            //       // North = new Node{Steps = Steps + 2},
+            //       NorthEast = North,
+            //       SouthEast = this,
+            //       South = SouthWest
+            //       // SouthWest = new Node{Steps = Steps + 2},
+            //       // NorthWest = new Node{Steps = Steps + 2}
+            //    };
+            // }
+            _northWest.NorthEast = North;
+            _northWest.SouthEast = this;
+            _northWest.South = SouthWest;
             return _northWest;
          }
          set{_northWest = value;}
