@@ -10,7 +10,8 @@ namespace advent_code
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Day7();
+            //Day7();
+            advent_code.DayElevenSpace.DayEleven.DoWork();
         }
 
         static void Day7()
