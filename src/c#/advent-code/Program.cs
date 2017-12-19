@@ -11,7 +11,7 @@ namespace advent_code
         {
             Console.WriteLine("Hello World!");
             //Day7();
-            advent_code.DayElevenSpace.DayEleven.DoWork();
+            advent_code.d112.DayEleven.DoWork();
         }
 
         static void Day7()
