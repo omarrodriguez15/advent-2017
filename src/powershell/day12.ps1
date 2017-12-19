@@ -35,19 +35,34 @@ function HowManyPipeToZero{
       $pipe = $_
       if($pipe.IsLinkedToZero){
          $numOfPipes += 1
-         $mapOfPipesToZero.Add($pipe.Name, 0)
+         $mapOfPipesToZero.Add([int]$pipe.Name, 0)
          $pipe.Pipes | %{
-            if(!$mapOfPipesToZero.ContainsKey($_)){
-               $mapOfPipesToZero.Add($_, 0)
+            if(!$mapOfPipesToZero.ContainsKey([int]$_)){
+               $mapOfPipesToZero.Add([int]$_, 0)
             }
          }
       }
       else{
-         if ($mapOfPipesToZero.ContainsKey($pipe.Name)){
+         if ($mapOfPipesToZero.ContainsKey([int]$pipe.Name)){
             $numOfPipes += 1
             $pipe.Pipes | %{
-               if(!$mapOfPipesToZero.ContainsKey($_)){
-                  $mapOfPipesToZero.Add($_, 0)
+               if(!$mapOfPipesToZero.ContainsKey([int]$_)){
+                  $mapOfPipesToZero.Add([int]$_, 0)
+               }
+            }
+         }
+         else {
+            $pipe.Pipes | %{
+               if ($mapOfPipesToZero.ContainsKey([int]$_)){
+                  $numOfPipes += 1
+                  $pipe.Pipes | %{
+                     if(!$mapOfPipesToZero.ContainsKey([int]$_)){
+                        $mapOfPipesToZero.Add([int]$_, 0)
+                     }
+                  }
+                  if(!$mapOfPipesToZero.ContainsKey([int]$pipe.Name)){
+                     $mapOfPipesToZero.Add([int]$pipe.Name, 0)
+                  }
                }
             }
          }
