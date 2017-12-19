@@ -10,8 +10,8 @@ namespace advent_code
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            //Day7();
-            advent_code.d112.DayEleven.DoWork();
+            Day7();
+            //advent_code.d112.DayEleven.DoWork();
         }
 
         static void Day7()
@@ -20,9 +20,9 @@ namespace advent_code
             var nodes = ReadFileInput.GetValues(@"../../input/day7.txt");
             Node baseNode = ns.GetTreeBase(nodes);
             Node node = ns.GetUnbalancedNode(nodes, baseNode);
-            // var unbalancedChild = baseNode.Children[2];
-            // Node unbalancedNode = nodes.FirstOrDefault(n => n.NodeRef.Name == unbalancedChild).NodeRef;
-            Console.WriteLine($"Base node is {baseNode.Name} Bye World!");
+            
+            Console.WriteLine($"UnBalanced node is {node.Name}!");
+            Console.WriteLine($"Base node is {baseNode.Name} !");
         }
     }
 }

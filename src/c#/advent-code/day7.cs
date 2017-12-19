@@ -5,6 +5,7 @@ using System.Linq;
 
 namespace advent_code
 {
+   //749
    public class Node
    {
       public List<string> Children { get; set; } = new List<string>();
@@ -22,8 +23,7 @@ namespace advent_code
    {
       public Node GetUnbalancedNode(List<NodeTuple> nodes, Node baseNode)
       {
-         Node unbalancedNode = null;
-         var sumMap = new Dictionary<int, string>();
+         var sumMap = new List<Tuple<int, string>>();
 
          foreach (var nodeName in baseNode.Children)
          {
@@ -31,37 +31,36 @@ namespace advent_code
             Node childNode = nodes.FirstOrDefault(n => n.NodeRef.Name == nodeName).NodeRef;
             int sum = 0;
             GetSumOfBranch(nodes, childNode, ref sum);
-            if (sumMap.ContainsKey(sum))
-            {
-                  sumMap[sum] = null;
-            }
-            else
-            {
-                  sumMap.Add(sum, nodeName);
-            }
+            sumMap.Add(new Tuple<int, string>(sum, nodeName));
          }
 
+         var hashTable = new Dictionary<int, Tuple<int, string>>();
+         var commonWeight = int.MinValue;
+         Console.WriteLine($"\r\nBase Name: {baseNode.Name} Weight: {baseNode.Weight}");
          foreach (var sum in sumMap)
          {
-            Console.WriteLine($"Base Name: {baseNode.Name} Weight: {baseNode.Weight}");
-            Console.WriteLine($"Name: {sum.Value} Weight: {sum.Key} \r\n");
-            if(sum.Value == null)
+            Console.WriteLine($"Name: {sum.Item2} Weight: {sum.Item1}");
+            if(hashTable.ContainsKey(sum.Item1))
             {
-                  continue;
+               commonWeight = sum.Item1;
             }
             else
             {
-                  var node = nodes.FirstOrDefault(n => n.NodeRef.Name == sum.Value).NodeRef;
-                  unbalancedNode = GetUnbalancedNode(nodes, node);
-                  if (unbalancedNode == null)
-                  {
-                     unbalancedNode = node;
-                     //Console.WriteLine($"base:{baseNode.Name};baseWeight:{baseNode.Weight};Name:{node.Name};Weight:{node.Weight}");
-                  }
+               hashTable.Add(sum.Item1, sum);
             }
          }
 
-         return null;
+         Node unbalancedNode = null;
+         foreach (var sum in sumMap)
+         {
+            if(sum.Item1 != commonWeight)
+            {
+               unbalancedNode = nodes.FirstOrDefault(n => n.NodeRef.Name == sum.Item2).NodeRef;
+               unbalancedNode = GetUnbalancedNode(nodes, unbalancedNode);
+            }
+         }
+         
+         return unbalancedNode ?? baseNode;
       }
 
       private void GetSumOfBranch(List<NodeTuple> nodes, Node childNode, ref int sum)
